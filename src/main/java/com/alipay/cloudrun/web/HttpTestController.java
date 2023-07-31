@@ -49,6 +49,6 @@ public class HttpTestController {
     public String echo(HttpServletRequest request) {
          String payload = StreamUtils.copyToString(request.getInputStream(), StandardCharsets.UTF_8);
          System.out.println(payload);
-         return "test"
+         return "test";
     }
 }
