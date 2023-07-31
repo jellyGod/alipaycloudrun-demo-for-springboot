@@ -10,9 +10,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
+import org.springframework.util.StreamUtils;
+
+
 /**
  * 测试服务访问
  */
+@Slf
 @RestController
 public class HttpTestController {
 
@@ -37,5 +42,13 @@ public class HttpTestController {
         String hostName = System.getenv("HOSTNAME") == null ? "springboot-demo" : System.getenv("HOSTNAME");
         String result = "欢迎使用云托管!&服务版本：" + version + "&实例主机：" + hostName;
         return result;
+    }
+
+    @ControllerPointCut
+    @PostMapping("/vcs/webhook")
+    public String echo(HttpServletRequest request) {
+         String payload = StreamUtils.copyToString(request.getInputStream(), StandardCharsets.UTF_8);
+         System.out.println(payload);
+         return "test"
     }
 }
