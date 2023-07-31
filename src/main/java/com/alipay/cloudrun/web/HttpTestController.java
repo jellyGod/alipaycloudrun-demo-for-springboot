@@ -17,7 +17,6 @@ import org.springframework.util.StreamUtils;
 /**
  * 测试服务访问
  */
-@Slf
 @RestController
 public class HttpTestController {
 
