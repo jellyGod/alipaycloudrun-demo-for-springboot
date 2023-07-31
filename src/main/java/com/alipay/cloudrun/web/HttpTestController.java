@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.util.StreamUtils;
 import java.nio.charset.StandardCharsets;
+import java.io.IOException;
 
 
 /**
@@ -48,7 +49,12 @@ public class HttpTestController {
     @ControllerPointCut
     @PostMapping("/vcs/webhook")
     public String echo(HttpServletRequest request) {
-         String payload = StreamUtils.copyToString(request.getInputStream(), StandardCharsets.UTF_8);
+         String payload = null;
+         try{
+           payload = StreamUtils.copyToString(request.getInputStream(), StandardCharsets.UTF_8);
+         } catch (IOException e) {
+            e.printStackTrace();
+         }
          System.out.println(payload);
          return "test";
     }
